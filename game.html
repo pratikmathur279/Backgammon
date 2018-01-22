@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript" charset="utf-8" src="jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="backgammon.js"></script>
+		<script type="text/javascript" charset="utf-8" src="backgammon_ai.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		function storeData(){
+			var s1 = $("#tst").text();
+			var s2 = $("#tst2").text();
+			document.getElementById("userscore").value = s1;
+			document.getElementById("cpuscore").value = s2;
+			
+		}
+			window.onload = function () {
+				//$("#tst").html("<h1>Yaa</h1>");
+				//document.forms["gameform"].getElementsById("cpuscore").value = "140";
+			//var cs = document.forms["gameform"].getElementsById("cpuscore").value;
+			//alert(cs);
+			var conf = {};
+			conf.playerTypeMap = {};
+			conf.playerTypeMap['b'] = "computer";
+			conf.playerTypeMap['w'] = "human";			
+			window.b = new BackGammon("backgammon", conf);
+			var ai = new BackGammonAI(b, b.BLACK);
+			b.registerStateListener(ai.stateChanged);
+			
+
+// about to take
+//b.loadState('{"currentPlayer":"b","gameState":2,"board":{"board":["","w","","w","bb","","bbbb","","bb","","","","wwwww","bbbbb","","","","ww","","wwwww","","","w","","bb","","","","","","","","","",""],"dices":[2,2,2,2],"diceRoll":[2,2,2,2]}}')
+// BLACK PIECE OUT
+//b.loadState('{"currentPlayer":"w","gameState":2,"board":{"board":["ww","bb","bbbbbbb","","b","","bb","ww","","bb","","","w","","","","w","ww","www","ww","","ww","","ww","bb","bb","","","","","","","","ww","bbb"],"dices":[4,4],"diceRoll":[4,4,4,4]}}');
+
+
+// White can move one piece only
+//b.loadState('{"currentPlayer":"w","gameState":2,"board":["","bbbbb","bbbb","bbb","","","","","","","","","","","","","","","ww","ww","www","wwww","www","w","bbb","","","","","","","","","",""],"currentDiceRoll":[6,3],"remainingDices":[6,3],"selectedPoint":19}');
+
+//b.loadState('{"currentPlayer":"b","gameState":2,"board":["","ww","","","","","bbbbb","","bbb","","","","wwwww","bbbbb","","","","www","","wwwww","","","","","bb","","","","","","","","","",""],"currentDiceRoll":[6,1],"remainingDices":[6,1]}');
+//b.loadState('{"currentPlayer":"b","gameState":2,"board":["","","b","","www","ww","bbbbb","","bb","","","","ww","bbbb","w","","","www","","ww","","b","b","ww","b","","","","","","","","","",""],"currentDiceRoll":[6,1],"remainingDices":[6]}');
+//b.loadState('{"currentPlayer":"b","gameState":2,"board":["","b","bb","bb","","b","bbbbb","bbb","b","","","","","","w","w","","","w","wwwww","w","wwww","","ww","","","","","","","","","","",""],"currentDiceRoll":[4,1],"remainingDices":[4,1]}')
+//b.loadState('{"currentPlayer":"b","gameState":2,"board":["","bb","","","","","","","","","","","","","","","","","","","ww","","w","w","","","","","","","","","","wwwwwwwwwww","bbbbbbbbbbbbb"],"currentDiceRoll":[3,3,3,3],"remainingDices":[3,3,3],"selectedPoint":1}')
+// End game 
+
+			};
+		</script>
+
+	</head>
+	<body>
+		<canvas id="backgammon" width="600px" height="500px"></canvas>
+	<div id="tst">
+	</div>
+	<div id="tst2">
+	</div>
+		<form method="post" action="./GameServlet" id="gameform" name="gameform">
+			<input type="hidden" id="cpuscore" name="cpuscore"></input>
+			<input type="hidden" id="userscore" name="userscore"></input>
+			<input type="submit" value="Click here to get results!" onclick = "return storeData()"></input>
+ 		</form>
+	</body>
+</html>
